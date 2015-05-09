@@ -4,7 +4,7 @@
 
 import scala.util.parsing.combinator._
 
-object ScalaYamlParser {
+object ScalaJsonParser {
   def main(args: Array[String]): Unit = {
 
     println(JsonParser("{'hoge':{'hoge':'hoge','hage':'hage'}}"))
@@ -149,7 +149,7 @@ object JsonParser extends RegexParsers {
 
    unescaped = %x20-21 / %x23-5B / %x5D-10FFFF
    */
-  def string = quotation_mark ~ char.+ ~ quotation_mark
+  def string = quotation_mark ~ rep1(char) ~ quotation_mark
 
   def char = unescaped | (escape ~ """[\u0022\u005c\u002f\u0062\u0066\u006e\u0072\u0074\u0075]""".r)
 
